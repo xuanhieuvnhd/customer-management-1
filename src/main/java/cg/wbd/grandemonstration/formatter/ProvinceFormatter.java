@@ -6,10 +6,9 @@ import org.springframework.format.Formatter;
 
 import java.text.ParseException;
 import java.util.Locale;
-import java.util.Optional;
 
 public class ProvinceFormatter implements Formatter<Province> {
-    private final ProvinceService provinceService;
+    private ProvinceService provinceService;
 
     public ProvinceFormatter(ProvinceService provinceService) {
         this.provinceService = provinceService;
@@ -17,8 +16,7 @@ public class ProvinceFormatter implements Formatter<Province> {
 
     @Override
     public Province parse(String text, Locale locale) throws ParseException {
-        Optional<Province> provinceOptional = provinceService.findOne(Long.valueOf(text));
-        return provinceOptional.orElse(null);
+        return provinceService.findOne(Long.valueOf(text)).get();
     }
 
     @Override

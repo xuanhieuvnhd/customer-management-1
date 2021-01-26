@@ -1,16 +1,30 @@
 package cg.wbd.grandemonstration.model;
 
+import cg.wbd.grandemonstration.validator.UniqueEmail;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Customers")
+@UniqueEmail
 public class Customer implements Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
+    @Size(max = 128)
     private String name;
+
+    @NotEmpty
+    @Email
+    @Size(max = 128)
     private String email;
+
+    @Size(max = 256)
     private String address;
 
     @ManyToOne
